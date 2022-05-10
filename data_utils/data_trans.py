@@ -25,7 +25,10 @@ def angle_axis(angle, axis):
                                 [-u[1], u[0], 0.0]])
 
     R = torch.from_numpy(
-        cosval * np.eye(3)
+        cosval * np.eye(3) 
+        #[[1.0.0.]
+          [0.1.0.]
+          [0.0.1.]]
         + sinval * cross_prod_mat
         + (1.0 - cosval) * np.outer(u, u)
     )
@@ -34,9 +37,11 @@ def angle_axis(angle, axis):
 
 
 class PointcloudScale(object):
+    #__init__: 생성자 함수
     def __init__(self, lo=0.8, hi=1.25):
         self.lo, self.hi = lo, hi
-
+    # __call__ : 클래스의 객체도 호출하게 만들어주는 메서드 
+#__init__은 인스턴스 초기화를 위해, __call__은 인스턴스가 호출됐을 때 
     def __call__(self, points):
         scaler = np.random.uniform(self.lo, self.hi)
         points[:, 0:3] *= scaler
